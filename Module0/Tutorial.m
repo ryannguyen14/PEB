@@ -124,7 +124,7 @@ v2 = [1; 2; 3];
 
 
 % Q: What if I wanted a vector that had all even integers from 2 to 1000 ? Use a semicolon for output suppression
-u1 = ;%... 
+u1 = (2:2:1000); 
 
 
 
@@ -198,13 +198,19 @@ M4 = M2*M3;
 % the above code to make M2*M3 work?
 
 
-
+%% You would have to either edit M2, M3, or both such that the number of 
+%% columns in M2 is equal to the number of rows in M3 
 
 
 % Q: What would the .* operator be then? Generate 2 matrices of your
 % choice, and put the product of both * and .* into a third matrix.
 
+%% This would produce an error since dot product multiplication requires 
+%% both matrices to have the same dimensions 
 
+A1 = randi(10,5,5);
+A2 = randi(20,5,5);
+A3 = (A1 * A2) .* (A1.*A2);
 
 
 
@@ -258,6 +264,8 @@ ind1 = r1 < 0.5;
 % verify using >> help ind1 on the command line. 
 
 % Q: What happens when you do r2 = r1(ind1)? 
+
+%% I don't really know completely why but it looks like r2 is exactly r1
 
 
 % Vectorization, or the accessing of array indices using vectors (instead
@@ -343,11 +351,14 @@ v1=1:10;
 
 % Initialize a vector, v2, of zeros of length 10:
 
-
+v2 = zeros(1,10);
 
 % Write a for loop to fill in the vector
 
-
+for idx = 1:size(v1,2)
+    v2(idx) = v1(idx);
+end
+    
 
 %% Check that the vectors are identical using boolean logic
 % The "all" function asseses whether all entries are 1/true
@@ -380,8 +391,14 @@ disp(cnt)   % print to the sceen the number of flips
 %% 2.3 All for loops can be written as while loops
 % Write a while loop to create a vector v3 that is identical to v1 and v2
 
+count = 1; 
 
+v3 = zeros(1,10); 
 
+while count <= size(v1,2) 
+    v3(count) = v1(count);
+    count = count+1; 
+end
 
 
 

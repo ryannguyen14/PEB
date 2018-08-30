@@ -12,4 +12,30 @@ function [Mean, STD, Median] = VectorStatistics(v)
         Median:    median of vector
     
     %}
+   
+    % This calculates the mean
+    v_length = length(v); 
+    v_sum = sum(v); 
+    Mean = v_sum/v_length; 
+   
+    % This calculates the standard deviation
+    STD = 0; 
+    for i = 1:vec_length 
+        STD = STD + (v(i) - Mean)/v_length; 
+    end
     
+    % This calculates the median 
+    sorted_v = sort(v);
+    if mod(v_length, 2) == 0 
+        middle = v_length/2;
+        Median = sorted_v(middle) + sorted_v(middle + 1);
+    else 
+        middle = (v_length + 1)/2; 
+        Median = sorted_v(middle); 
+    end
+end
+        
+       
+   
+   
+   
