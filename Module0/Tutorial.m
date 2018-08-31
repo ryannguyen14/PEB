@@ -192,7 +192,7 @@ M1 = ones(3,3);
 % The * operator is matrix-multiplication, which means that in order to use
 % it, you need to have "conforming" matrices. That is, if we had
 M2 = ones(3,4);
-M3 = ones(5,8);
+M3 = ones(4,8);
 M4 = M2*M3;
 % M4 will not be created, and M2*M3 will throw an error. How could you edit
 % the above code to make M2*M3 work?
@@ -469,28 +469,39 @@ f0=figure();
 % This ensures that the histogram will be normalized such that the resultant
 % plot will be that of the probability distribution function
 
-
+histogram(CoinCounts,bin_edges,'Normalization', 'pdf')
 
 % The probability distribution defining the number of failed trials 
 % before the first success is known as the geometric distribution.
 % Create a vector of the center of the bins named bin_centers.
 
+bin_centers = zeros(1,length(bin_edges)-1);
 
+for i = 1:length(bin_edges)-1
+    bin_centers(i) = (bin_edges(i) + bin_edges(i+1))/2;
+end 
 
 % Calculate the theoretical distribution. The geometric distribution
 % is defined as P(N) = p(1-p)^N, where p is the probability of a success 
 % and N is the number of failed trials until the first successful one. 
 % Create a vector named P_N, using "bin_centers" as your N.
 
-
+p = 0.5; 
+P = zeros(1, length(bin_centers)); 
+for N = 1:length(bin_centers)
+    P(N) = p*(1-p)^N;
+end 
 
 % Use "hold" to plot the theoretical distribution on top of the histogram
 
-
+hold on 
+plot(bin_centers, P)
 
 % Add axis labels and a legend using "xlabel","ylabel", and "legend"
 
-
+xlabel("Number of Consecutive Heads")
+ylabel("Probability")
+legend('CointCounts','PDF')
 
 % Use the figure handle, "f0", and the functions "savefig" and "saveas" to 
 % save your figure as a matlab figure (.fig) and an image file (.png) 
