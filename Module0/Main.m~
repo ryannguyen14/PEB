@@ -32,7 +32,6 @@ MSD = zeros(N_deltat, 3);
 for i = 1:length(inds) 
     ind = inds(i);
     dxs = x(1:end-ind,:,:) - x(1+ind:end,:,:); 
-    dys = y(1:end-ind,:,:) - y(1+ind:end,:,:); 
-    MSD(i,:) = mean(dxs^2 + dys^2,2); 
+    dys = y(1:end-ind,:,:) - 
 end 
     
