@@ -37,8 +37,16 @@ for i = 1:length(inds)
     MSD(i,:) = mean(mean(dxs.^2,2),1) + mean(mean(dys.^2,2),1);
 end 
 %%
-loglog(inds,MSD(:,1));
+%delta_t = inds(2:end) - inds(1:end-1); 
+phi1_MSD = MSD(:,1); 
+loglog(phi1_MSD(1:end-1));
+hold on;
+%%
 hold on;     
 loglog(inds,MSD(:,2));
 hold on;     
-loglog(inds,MSD(:,2));
+loglog(inds,MSD(:,3));
+xlabel('Time (sec)'); 
+ylabel('MSD (microns^2)');
+title('Mean Squared Displacement at Different Packing Fractions');
+legend('phi = 0.2','phi = 0.5', 'phi = 0.8', 'Location','northwest');
