@@ -76,10 +76,8 @@ for i = 1:length(inds)
 end 
 
 %% Section 3: Plotting 
-% This sections plots MSD as a function of time on a loglog scale. 
+% This sections now plots M
 
-%% 3.1: Plotting for Each Packing Fraction 
-% Plotting MSD for each Packing Fraction 
 loglog(inds,MSD(:,1));
 hold on;
 loglog(inds,MSD(:,2));
