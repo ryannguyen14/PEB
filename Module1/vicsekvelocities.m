@@ -20,10 +20,10 @@ function [vs] = vicsekvelocities(N, v0, r0, rc, eta, beta, L, rs, vs)
     %}
     
     % Initialize Variables
-    sum_vs = ;   % Sum of neighboring velocities
-    Si_norm = ;  % Number of neighbors for each cell i
-    Fi = ;       % Total repulsive force for each cell i
-    
+    sum_vs = zeros(N,2);   % Sum of neighboring velocities
+    Si_norm = zeros(N,1);  % Number of neighbors for each cell i
+    Fi = zeros(N,2);       % Total repulsive force for each cell i
+
     % Calculate Fi
     for i=1:N
        % Calculate distance between cell i and the rest within a periodic box
@@ -32,15 +32,14 @@ function [vs] = vicsekvelocities(N, v0, r0, rc, eta, beta, L, rs, vs)
        dists = sqrt(sum(rijs'.^2))';
        
        % Calculate the set Si 
-       Si = ;
-       Si_norm(i) = ;
+       Si = find(dists <= r0 & dists ~= 0)';
+       Si_norm(i) = length(Si);
        
        % Calculate sum_vs(i,:)
-       sum_vs(i, :) = ;
+       sum_vs(i, :) = sum(vs(Si));
        
        % Calculate the repulsive force due to each cell on i
-       
-       Fi(i,:)=;
+       Fi(i,:) = sum(max(1 - (rijs./rc).*(rijs./dists),0));
     end
     
     % Calculate a matrix of random unit vectors

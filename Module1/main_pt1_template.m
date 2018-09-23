@@ -151,12 +151,8 @@ for fish = 1:NFISH
         MSD_array{fish,dom} = MSD;
     end
 end
-%%
-d = 3;
-a = xtmp_msd(1:end-d,:)- xtmp_msd(1+d:end,:);
-b = ytmp_msd(1:end-d,:)- ytmp_msd(1+d:end,:);
-c = ztmp_msd(1:end-d,:)- ztmp_msd(1+d:end,:);
-mean(nanmean(a.^2,2),1) +  mean(nanmean(b.^2,2),1) +  mean(nanmean(c.^2,2),1)
+%% Plot MSD's
+
 
 %% End of script
 fprintf('Ending maint pt1 script.\n');

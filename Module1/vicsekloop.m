@@ -31,19 +31,19 @@ Outputs:
 %}
 
 % Define Simulation Parameters
-r0 = ;        % Range of Vicsek influence
-rc = ;        % Diameter of cells
-v0 = ;        % Speed of cells
-N = ;         % Number of cells
-L = ;         % Size of the box
-Nsteps = ;    % Number of steps for the simulation
-Nplot = ;     % Number of steps between plotting the state of the simulation
-dt = ;        % Simulation timestep
-eta = ;       % Value of eta for the simulation
-beta =  ;     % Value of beta for the simulation
+r0 = 0.75;        % Range of Vicsek influence
+rc = 0.5;        % Diameter of cells
+v0 = 0.1;        % Speed of cells
+N = 50;         % Number of cells
+L = 5;         % Size of the box
+Nsteps = 1000;    % Number of steps for the simulation
+Nplot = 5;     % Number of steps between plotting the state of the simulation
+dt = 0.1;        % Simulation timestep
+eta = 0.5;       % Value of eta for the simulation
+beta =  30;     % Value of beta for the simulation
 
 % Initialize phis for collection of the order parameter
-phis = ;
+phis = zeros(Nsteps,1);
 
 % Initialize Positions and Velocities
 rs = rand(N, 2) * L;
@@ -51,24 +51,23 @@ vs = randn(N, 2);
 vnorm = sqrt(sum(vs'.^2))';
 vs = vs .* v0 ./ [vnorm, vnorm];
 
-% Plot the Initial Conditions
+%% Plot the Initial Conditions
 figure();
 vicsekplot(rs, vs, rc, L);
-
-
+%%
 % Loop over simulation
 for step = 1:Nsteps
     % Perform Integration
-    vs = ;
+    vs = vicsekvelocities(N, v0, r0, rc, eta, beta, L, rs, vs);
     rs = rs + vs * dt;
     
     % Calculate the Order Parameter
-    phis(step) = ;
+    phis(step) = sqrt(sum(mean(vs).^2))/v0;
     
     % Plot cells and velocities
     if mod(step, Nplot) == 0
-        vicsekplot(rs, vs, rc, L)
-        title(sprintf('eta %.2f,beta%1.1f, step=%d', eta, beta, step));
-        pause(0.02);
+       vicsekplot(rs, vs, rc, L)
+       title(sprintf('eta %.2f,beta%1.1f, step=%d', eta, beta, step));
+       pause(0.02);
     end
 end
