@@ -125,7 +125,7 @@ ylabel(['Polarization Value'],'interpreter','latex');
 title('DM Polarization For Each Fish over Time','interpreter','latex');
 
 % create legend
-legend({['Fish 1'], ['Fish 2'],['Fish 3'],['Fish 4'], ['Fish 5'], ['FIsh 6']},'interpreter','latex','location','best');
+legend({['Fish 1'], ['Fish 2'],['Fish 3']},'interpreter','latex','location','best');
 % create axis object for this figure using ?get current axis? (gca) function:
 ax = gca;
 ax.FontSize = 20;
@@ -148,7 +148,7 @@ ylabel(['Polarization Value'],'interpreter','latex');
 title('PZ Polarization For Each Fish over Time','interpreter','latex');
 
 % create legend
-legend({['Fish 1'], ['Fish 2'],['Fish 3'],['Fish 4'], ['Fish 5'], ['FIsh 6']},'interpreter','latex','location','best');
+legend({['Fish 1'], ['Fish 2'],['Fish 3']},'interpreter','latex','location','best');
 % create axis object for this figure using ?get current axis? (gca) function:
 ax = gca;
 ax.FontSize = 20;
@@ -170,7 +170,7 @@ ylabel(['Polarization Value'],'interpreter','latex');
 title('PSM Polarization For Each Fish over Time','interpreter','latex');
 
 % create legend
-legend({['Fish 1'], ['Fish 2'],['Fish 3'],['Fish 4'], ['Fish 5'], ['FIsh 6']},'interpreter','latex','location','best');
+legend({['Fish 1'], ['Fish 2'],['Fish 3']},'interpreter','latex','location','best');
 % create axis object for this figure using ?get current axis? (gca) function:
 ax = gca;
 ax.FontSize = 20;
@@ -224,7 +224,7 @@ ylabel(['MSD ($\mu \textnormal{m}^{2}$)'],'interpreter','latex');
 title('DM MSD For Each Fish over Time','interpreter','latex');
 
 % create legend
-legend({['Fish 1'], ['Fish 2'],['Fish 3'],['Fish 4'], ['Fish 5'], ['FIsh 6']},'interpreter','latex','location','best');
+legend({['Fish 1'], ['Fish 2'],['Fish 3'],['Fish 4'], ['Fish 5']},'interpreter','latex','location','best');
 % create axis object for this figure using ?get current axis? (gca) function:
 ax = gca;
 ax.FontSize = 20;
@@ -241,11 +241,11 @@ plot(MSD_array{6,2});
 
 % label axes, and format using LaTeX to get a nice font and equation formatting
 xlabel(['$\Delta$t (minutes)'],'interpreter','latex');
-ylabel(['MSD ($\mu \textnormal{m}^{2}$)'],'interpreter','latex');
+ylabel(['MSD ($\mu \textnormal{m}^{2}$)$'],'interpreter','latex');
 title('PZ MSD For Each Fish over Time','interpreter','latex');
 
 % create legend
-legend({['Fish 1'], ['Fish 2'],['Fish 3'],['Fish 4'], ['Fish 5'], ['FIsh 6']},'interpreter','latex','location','best');
+legend({['Fish 1'], ['Fish 2'],['Fish 3']},'interpreter','latex','location','best');
 % create axis object for this figure using ?get current axis? (gca) function:
 ax = gca;
 ax.FontSize = 20;
@@ -267,7 +267,7 @@ ylabel(['MSD ($\mu \textnormal{m}^{2}$)'],'interpreter','latex');
 title('PSM MSD For Each Fish over Time','interpreter','latex');
 
 % create legend
-legend({['Fish 1'], ['Fish 2'],['Fish 3'],['Fish 4'], ['Fish 5'], ['FIsh 6']},'interpreter','latex','location','best');
+legend({['Fish 1'], ['Fish 2'],['Fish 3']},'interpreter','latex','location','best');
 % create axis object for this figure using ?get current axis? (gca) function:
 ax = gca;
 ax.FontSize = 20;
