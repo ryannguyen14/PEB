@@ -56,18 +56,33 @@ figure();
 vicsekplot(rs, vs, rc, L);
 %%
 % Loop over simulation
-for step = 1:Nsteps
-    % Perform Integration
-    vs = vicsekvelocities(N, v0, r0, rc, eta, beta, L, rs, vs);
-    rs = rs + vs * dt;
-    
-    % Calculate the Order Parameter
-    phis(step) = sqrt(sum(mean(vs).^2))/v0;
-    
-    % Plot cells and velocities
-    if mod(step, Nplot) == 0
-       vicsekplot(rs, vs, rc, L)
-       title(sprintf('eta %.2f,beta%1.1f, step=%d', eta, beta, step));
-       pause(0.02);
-    end
+
+%Create arrays of eta and beta values
+etas = 0.50:0.025:0.75;
+num_etas = length(etas);
+betas = [0.0,30];
+num_betas = length(betas);
+
+% create cell to store phi values for each eta and beta
+phi_avg = cell(num_etas,num_betas);
+
+for eta_index = 1:num_etas
+    for beta_index = 1:num_betas
+        for step = 1:Nsteps
+            % Perform Integration
+            vs = vicsekvelocities(N, v0, r0, rc, etas(eta_index), betas(beta_index), L, rs, vs);
+            rs = rs + vs * dt;
+
+            % Calculate the Order Parameter
+            phis(step) = sqrt(sum(mean(vs).^2))/v0;
+
+            % Plot cells and velocities
+%             if mod(step, Nplot) == 0
+%                vicsekplot(rs, vs, rc, L)
+%                title(sprintf('eta %.2f,beta%1.1f, step=%d', eta, beta, step));
+%                pause(0.02);
+%             end
+            phi_avg{eta_index,beta_index} = phis;
+        end
+    end 
 end

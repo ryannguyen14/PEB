@@ -28,7 +28,9 @@ function []=vicsekplot(rs, vs, rc, L)
     axis square
     % Plot circles with proper radii for the disks
     h=zeros(1,N);
+    
     for ind=1:N
+        [mod(rs(ind,1)-.5*rc,L) mod(rs(ind,2)-.5*rc,L) rc rc]
         h(ind)=rectangle('Position',[mod(rs(ind,1)-.5*rc,L) mod(rs(ind,2)-.5*rc,L) rc rc],'Curvature',[1 1],'edgecolor','b');
     end
     drawnow;
