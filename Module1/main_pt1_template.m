@@ -274,7 +274,23 @@ ax.FontSize = 20;
 ax.XScale = 'log'; % optinoal, default is ?lin? for linear scale
 ax.YScale = 'log'; % optional, default is ?lin? for linear scale
 
+%% Calculate Alpha and D 
 fprintf('Now Calculating alpha and D...\n');
 
+%initiate cells for alpha and D
+alphas = cell(NFISH,NDOM);
+Ds = cell(NFISH,NDOM); 
+for fish = 1:NFISH
+    for dom = 1:NDOM
+        % use polyfit to extract slope (which is alpha) and intercept (which is log(D)) of MSD versus time in logscale 
+        intercept = polyfit(log(tinds{fish}(1:end-1)),log(MSD_array{fish,dom}(1:end-1)),1); 
+        alphas{fish,dom} = intercept(1);
+        Ds{fish,dom} = 10^intercept(2);
+    end
+end
+
+% write alpha and D to csv files
+csvwrite('alpha.csv', cell2mat(alphas))
+csvwrite('D.csv', cell2mat(Ds))
 %% End of script
 fprintf('Ending maint pt1 script.\n');

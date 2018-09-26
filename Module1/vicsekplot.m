@@ -30,7 +30,8 @@ function []=vicsekplot(rs, vs, rc, L)
     h=zeros(1,N);
     
     for ind=1:N
-        [mod(rs(ind,1)-.5*rc,L) mod(rs(ind,2)-.5*rc,L) rc rc]
-        h(ind)=rectangle('Position',[mod(rs(ind,1)-.5*rc,L) mod(rs(ind,2)-.5*rc,L) rc rc],'Curvature',[1 1],'edgecolor','b');
+        %I changed this a bit so the code could run; basically if the mod
+        %is Nan, I don't include that value
+        h(ind)=rectangle('Position',[max(mod(rs(ind,1)-.5*rc,L),0) max(mod(rs(ind,2)-.5*rc,L),0) rc rc],'Curvature',[1 1],'edgecolor','b');
     end
     drawnow;

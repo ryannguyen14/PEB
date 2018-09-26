@@ -58,9 +58,9 @@ vicsekplot(rs, vs, rc, L);
 % Loop over simulation
 
 %Create arrays of eta and beta values
-etas = 0.50:0.025:0.75;
+etas = 0.50:0.025:0.75; %[0.5];
 num_etas = length(etas);
-betas = [0.0,30];
+betas = [0.0,30]; 
 num_betas = length(betas);
 
 % create cell to store phi values for each eta and beta
@@ -72,17 +72,62 @@ for eta_index = 1:num_etas
             % Perform Integration
             vs = vicsekvelocities(N, v0, r0, rc, etas(eta_index), betas(beta_index), L, rs, vs);
             rs = rs + vs * dt;
-
+            
             % Calculate the Order Parameter
-            phis(step) = sqrt(sum(mean(vs).^2))/v0;
+            phis(step) = sqrt(sum(nanmean(vs).^2))/v0;
 
-            % Plot cells and velocities
+%             % Plot cells and velocities
 %             if mod(step, Nplot) == 0
 %                vicsekplot(rs, vs, rc, L)
-%                title(sprintf('eta %.2f,beta%1.1f, step=%d', eta, beta, step));
+%                title(sprintf('eta %.2f,beta%1.1f, step=%d', etas(eta_index), betas(beta_index), step));
 %                pause(0.02);
 %             end
-            phi_avg{eta_index,beta_index} = phis;
+            phi_avg{eta_index,beta_index} = mean(phis);
         end
     end 
 end
+
+% Convert phi_avg to matrix
+phi_avg = cell2mat(phi_avg);
+
+%% Plot Mean Averaged Polarization as a Function of Beta and Eta
+
+%% Beta = 0.0
+figure([1]), hold on, box on;
+plot(etas, phi_avg(:,1));
+
+% label axes, and format using LaTeX to get a nice font and equation formatting
+xlabel(['$\eta$'],'interpreter','latex');
+ylabel(['Polarization'],'interpreter','latex');
+title('Polarization of Cells When $\beta=0$','interpreter','latex');
+
+% create legend
+legend({['Averaged Simulations (n = 10)']},'interpreter','latex','location','best');
+% create axis object for this figure using ?get current axis? (gca) function:
+ax = gca;
+ax.FontSize = 20;
+ax.XScale = 'lin'; % optinoal, default is ?lin? for linear scale
+ax.YScale = 'lin'; % optional, default is ?lin? for linear scale
+
+%save tofile
+saveas(figure([1]),'PolBeta0.png')
+
+%% Beta = 30.0
+figure([2]), hold on, box on;
+plot(etas, phi_avg(:,2));
+
+% label axes, and format using LaTeX to get a nice font and equation formatting
+xlabel(['$\eta$'],'interpreter','latex');
+ylabel(['Polarization'],'interpreter','latex');
+title('Polarization of Cells When $\beta=30$','interpreter','latex');
+
+% create legend
+legend({['Averaged Simulations (n = 10)']},'interpreter','latex','location','best');
+% create axis object for this figure using ?get current axis? (gca) function:
+ax = gca;
+ax.FontSize = 20;
+ax.XScale = 'lin'; % optinoal, default is ?lin? for linear scale
+ax.YScale = 'lin'; % optional, default is ?lin? for linear scale
+
+%save to file
+saveas(figure([2]),'PolBeta30.png')

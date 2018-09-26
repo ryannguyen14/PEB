@@ -31,7 +31,8 @@ function [vs] = vicsekvelocities(N, v0, r0, rc, eta, beta, L, rs, vs)
        rijs = mod((rijs + L./2), L) - L./2;
        dists = sqrt(sum(rijs'.^2))';
        
-       % Calculate the set Si 
+       % Calculate the set Si, ignore value that corresponds with cell i
+       % itself
        Si = find(dists <= r0 & dists ~= 0)';
        Si_norm(i) = length(Si);
        
