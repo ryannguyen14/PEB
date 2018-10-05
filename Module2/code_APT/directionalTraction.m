@@ -9,7 +9,7 @@ function directionalTraction(varargin)
 %%%%%%%%%%
 
 
-load('Reg-FTTC_results_02-08-17.mat');
+load('/Users/ryannguyen/Desktop/PEB/Module2/task1/example1/Reg-FTTC_results_19-09-18.mat');
 
 %Specify limits for colorbars on stress maps
 max_stress=100;
@@ -39,7 +39,7 @@ allParallel=[];
 allPerp=[];
 radialProfiles=[];
 startFrame=1;
-endFrame=1;
+endFrame=38;
 slopes=[];
 for i=startFrame:endFrame
 %     pnumberi='0';
