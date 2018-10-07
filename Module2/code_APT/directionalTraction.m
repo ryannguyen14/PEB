@@ -8,8 +8,9 @@ function directionalTraction(varargin)
 % Removed 3*r.vec term in interp_vec2grid input APT 180905
 %%%%%%%%%%
 
-
-load('/Users/ryannguyen/Desktop/PEB/Module2/task1/example1/Reg-FTTC_results_19-09-18.mat');
+%New part added by Ryan in order to do analysis automatically on all frames
+%in file
+load(varargin{2});
 
 %Specify limits for colorbars on stress maps
 max_stress=100;
@@ -39,7 +40,7 @@ allParallel=[];
 allPerp=[];
 radialProfiles=[];
 startFrame=1;
-endFrame=38;
+endFrame=length(TFM_results);
 slopes=[];
 for i=startFrame:endFrame
 %     pnumberi='0';
