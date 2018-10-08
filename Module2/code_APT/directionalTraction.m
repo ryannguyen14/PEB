@@ -13,7 +13,7 @@ function directionalTraction(varargin)
 load(varargin{2});
 
 %Specify limits for colorbars on stress maps
-max_stress=100;
+max_stress=varargin{3};
 min_stress=0;
 
 
