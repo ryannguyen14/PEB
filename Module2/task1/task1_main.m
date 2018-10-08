@@ -15,9 +15,9 @@ for num = 1:length(dir('example*'))
     %% Run modified directionTraction script
     % change directories into proper example directory
     cd(strcat('example',num2str(num)))
-    directionalTraction([],example);
+    directionalTraction([],example,100);
 
-    %% Stress Analysis as a Function of Radial Distance From Center Over Time
+    %% Evolution of Stress at Radial Distances From Center Over Time
     load('radialProfiles.mat')
 
     distance_force_cell = cell(1,length(radialProfiles{1}.sum));
@@ -70,6 +70,39 @@ for num = 1:length(dir('example*'))
     saveas(gcf,'Stress_Distance.png')
     hold off;
     
+    %% 3D plotting of Stress Evolution Over Time
+    clf
+
+    fontsize = 25;
+    N = 1:length(radialProfiles{1}.sum);
+
+    figure(9)
+    for t = 1:N_frames 
+        plot3(radialProfiles{t}.DistFromCenterMicrons(N),t*ones(size(N)), radialProfiles{t}.sum(N),'-o','linewidth',2)
+        grid on;
+        hold on;
+    end
+    title('Stress Sum at Radial Distances Over Time','interpreter','latex');
+    
+    
+    xlabel("Distance From Center $(\mu m)$", 'interpreter', 'latex')
+    ylabel("Frame Number")
+    zlabel("Average Radial Stress (Pa)",'interpreter', 'latex')
+    
+    ax = gca;                                       % get the axes object
+    ax.FontSize = fontsize;                         % set the font size on the figure
+
+    % Make the figure bigger so that way saved file doesn't look like crap
+    x0 = 10;
+    y0 = 10;
+    width = 1300;
+    height = 1000;
+    set(gcf,'units','points','position',[x0,y0,width,height]);
+    
+    % save file in example directory
+    saveas(gcf,'Stress_Distance_3D.png')
+    hold off;
+    
     %% Total Work Done on Substrate
     energy_array = zeros(N_frames,1);
 
@@ -78,7 +111,7 @@ for num = 1:length(dir('example*'))
     end
     
     % Perfect Figure Adujustments
-    figure(9), hold on, box on;
+    figure(10), hold on, box on;
     plot(1:N_frames, energy_array,'linewidth',4)
     xlabel('Frame Number','interpreter','latex');
     ylabel('Total Energy (pJ)','interpreter','latex');
