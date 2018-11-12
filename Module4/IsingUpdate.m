@@ -36,12 +36,9 @@ for t = 1:N^2*nSweeps% the number of spins to be attempted.  A 'sweep' is N^2 at
     end 
     
     neighbors = left_neighbor + right_neighbor + up_neighbor + down_neighbor;%The sum of the four neighboring spins
-    betaDeltaE = 2 * betaJ * current * neighbors + 2 *betaJ*betaH*current;
-    
-    %(1/(2*betaJ)) * neighbors - betaH * current;%The difference in energy between states with the current spin flipped and not
-    if  exp(-1*betaDeltaE) < rand %Implements the metrolpolis probability.  This if statement should resolve 'true' if the spin should be flipped and false otherwise
-        l(x,y) = - current; %If move is accepted flip the spin at (x,y)
-
+    betaDeltaE = 2 * betaJ * current * neighbors + 2 * betaH * current; %The difference in energy between states with the current spin flipped and not
+    if  rand < exp(-1*betaDeltaE) %Implements the metrolpolis probability.  This if statement should resolve 'true' if the spin should be flipped and false otherwise
+        l(x,y) = -1 * current; %If move is accepted flip the spin at (x,y)
     end
     disp("Current sweep number: " + int2str(t))
 end

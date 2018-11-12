@@ -1,1 +1,1 @@
-makeFilm("test.gif", 2, 20, 30)
+makeFilm('test.gif', 10, 2, 0.1)
