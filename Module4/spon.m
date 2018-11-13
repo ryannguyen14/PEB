@@ -1,50 +1,43 @@
+%This main script is for part 3 question 2
 %makeFilm("test", 10, 20, 30)
-function []=makeFilm(filename ,frames ,t ,h )
+function []=makeFilmSpon(filename ,frames ,t_values ,h )
 %filename is the name of the .gif that is generated
 %t is the temperature of the Ising model, which below we rescale according
 %to Onsager's exact solution, T_c=2/log(1+2^.5) 
 %frames is the length of the .gif to be made
 
-%Modification to automate for Part 2 
-if contains(filename, 'normal')
-    lattice = 2*randi(2,256)-3;
-elseif contains(filename, 'all1')
-    lattice = ones(256); %start from a lattice of +1
-else 
-     lattice = -1 * ones(256);
-end
-    
- %start from a lattice of +1%
-%lattice = 2*randi(2,256)-3;
 
-betaJ = log(1+2^.5)/(2*t);
-betaH = h * log(1+2^.5)/(2*t);
-sweepsPerPrint = 1; %number of sweeps per frame. 
 
-%fig1 = figure;%Uncomment this to view movie live in a figure
-%imshow((l+1)/2);%Uncomment this to view movie live
-disp("Making lattice ...")
-%axis tight manual % %Uncomment this to view movie live this ensures that getframe() returns a consistent size
 
-% %For Part 3 only
-% lattice = ones(256);
+disp("Making lattice ...") 
+
+lattice = ones(256);  %start from a lattice of +1%
 
 lattice = IsingUpdate(lattice,betaJ,betaH,1);%equilibrate the model, might need to adjust '100'
+i = 1;
+for t = 1:length(t_values)
+    disp(t)
+    betaJ = log(1+2^.5)/(2*t_values(t));
+    betaH = h * log(1+2^.5)/(2*t_values(t));
+    sweepsPerPrint = 1; %number of sweeps per frame. 
 
-for n = 1:frames
-    % Draw plot
-    lattice = IsingUpdate(lattice,betaJ,betaH,sweepsPerPrint);
-    mean_lattice1(n) = mean(reshape(lattice,[],1)); 
-%     imshow((lattice+1)/2);%Uncomment this to view movie live
-%     drawnow;%Uncomment this to view movie live  
-    % Write to the GIF File 
-%     if n == 1 
-%         imwrite(255*(lattice + 1)/2+1,filename,'gif', 'Loopcount',inf); 
-%     else 
-%         imwrite(255*(lattice + 1)/2+1,filename,'gif','WriteMode','append'); 
-%     end 
-   % disp("Next frame")
-end
+    for n = 1:frames
+        % Draw plot
+        lattice = IsingUpdate(lattice,betaJ,betaH,sweepsPerPrint);
+        mean_lattice(n) = mean(reshape(lattice,[],1)); 
+    %     imshow((lattice+1)/2);%Uncomment this to view movie live
+    %     drawnow;%Uncomment this to view movie live  
+        % Write to the GIF File 
+    %     if n == 1 
+    %         imwrite(255*(lattice + 1)/2+1,filename,'gif', 'Loopcount',inf); 
+    %     else 
+    %         imwrite(255*(lattice + 1)/2+1,filename,'gif','WriteMode','append'); 
+    %     end 
+       % disp("Next frame")
+    end
+    mean_lattice_array(i) = mean(reshape(mean_lattice,[],1)); 
+    i = i + 1;
+end 
 
 % % For putting on second initial condition for Part 3
 % lattice = -1 * ones(256); 
@@ -86,8 +79,8 @@ figure(1), hold on, box on;
 % letter means "color the data" and symbol means "use this as a marker".
 % Your options for each is outlined in the plot function documentation and
 % help screen.
-plot([1:frames],mean_lattice1 ,'-b','linewidth',2);                      % plot curve using line
-plot([1:frames],mean_lattice2 ,'-r','linewidth',2); 
+plot(t_values,mean_lattice_array ,'-b','linewidth',2);                      % plot curve using line
+
 % label your axes. Here, we can use LaTeX formatting with the option pair
 % 'interpreter','latex', which gives us a professional-looking font and the ability to typeset equations!
 xlabel('Number of Sweeps','interpreter','latex');
@@ -107,3 +100,5 @@ legend_strs = {'+1 Lattice', '-1 Lattice'};
 legend(legend_strs,'interpreter','latex','location','best');
 savefig(strcat('T=',num2str(t),'.fig'))
 disp("Done")
+
+

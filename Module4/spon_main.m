@@ -1,0 +1,1 @@
+makeFilmSpon("Spontaneous Magnetization",100, [0:0.1:2],0.02 )
