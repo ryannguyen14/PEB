@@ -40,5 +40,5 @@ for t = 1:N^2*nSweeps% the number of spins to be attempted.  A 'sweep' is N^2 at
     if  rand < exp(-1*betaDeltaE) %Implements the metrolpolis probability.  This if statement should resolve 'true' if the spin should be flipped and false otherwise
         l(x,y) = -1 * current; %If move is accepted flip the spin at (x,y)
     end
-    disp("Current sweep number: " + int2str(t))
+    %disp("Current sweep number: " + int2str(t))
 end
